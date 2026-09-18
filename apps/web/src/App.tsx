@@ -1,6 +1,38 @@
+import { useEffect, useState } from 'react'
 import './App.css'
 
+type ApiStatus = 'checking' | 'online' | 'offline'
+
+const apiBaseUrl =
+  import.meta.env.VITE_API_URL ?? 'http://localhost:4000/api/v1'
+
 function App() {
+  const [apiStatus, setApiStatus] = useState<ApiStatus>('checking')
+
+  useEffect(() => {
+    const checkApi = async () => {
+      try {
+        const response = await fetch(`${apiBaseUrl}/health`)
+
+        if (!response.ok) {
+          throw new Error('API health check failed')
+        }
+
+        setApiStatus('online')
+      } catch {
+        setApiStatus('offline')
+      }
+    }
+
+    void checkApi()
+  }, [])
+
+  const statusText = {
+    checking: 'Checking API',
+    online: 'API online',
+    offline: 'API offline',
+  }[apiStatus]
+
   return (
     <main className="app-shell">
       <header className="topbar">
@@ -9,12 +41,16 @@ function App() {
           <span>Leave Management System</span>
         </div>
 
-        <span className="status">Development in progress</span>
+        <span
+          className={`status status-${apiStatus}`}
+          aria-live="polite"
+        >
+          {statusText}
+        </span>
       </header>
 
       <section className="hero">
         <p className="eyebrow">Full stack portfolio project</p>
-
         <h1>Manage employee leave with clarity.</h1>
 
         <p className="introduction">
