@@ -149,3 +149,18 @@
     grid-template-columns: 1fr;
   }
 }
+.status-checking {
+  background: #f4f6f9;
+}
+
+.status-online {
+  border-color: #b9e6cb;
+  background: #eaf8f0;
+  color: #137647;
+}
+
+.status-offline {
+  border-color: #f0c1c1;
+  background: #fff0f0;
+  color: #b42318;
+}

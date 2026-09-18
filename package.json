@@ -7,12 +7,20 @@
     "apps/*",
     "packages/*"
   ],
-  "scripts": {
-    "dev:web": "npm run dev --workspace=@lms/web",
-    "build:web": "npm run build --workspace=@lms/web",
-    "lint:web": "npm run lint --workspace=@lms/web"
-  },
+"scripts": {
+  "dev": "concurrently --names WEB,API --prefix-colors blue,green \"npm run dev:web\" \"npm run dev:api\"",
+  "dev:web": "npm run dev --workspace=@lms/web",
+  "dev:api": "npm run dev --workspace=@lms/api",
+  "build": "npm run build:web && npm run build:api",
+  "build:web": "npm run build --workspace=@lms/web",
+  "build:api": "npm run build --workspace=@lms/api",
+  "lint:web": "npm run lint --workspace=@lms/web",
+  "start:api": "npm run start --workspace=@lms/api"
+},
   "engines": {
     "node": ">=22.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
   }
 }
