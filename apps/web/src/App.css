@@ -1,0 +1,151 @@
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.topbar {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+}
+
+.brand-mark {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 10px;
+  background: #1e5eff;
+  color: white;
+}
+
+.status {
+  padding: 8px 12px;
+  border: 1px solid #d7deea;
+  border-radius: 999px;
+  color: #536176;
+  font-size: 0.875rem;
+}
+
+.hero {
+  max-width: 760px;
+  margin: 120px auto 72px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin-bottom: 18px;
+  color: #1e5eff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  color: #172033;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  line-height: 1.05;
+}
+
+.introduction {
+  max-width: 650px;
+  margin: 24px auto 0;
+  color: #5c687a;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-top: 34px;
+}
+
+.actions button {
+  padding: 13px 20px;
+  border: 0;
+  border-radius: 9px;
+  background: #1e5eff;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.actions a {
+  color: #26344c;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.capabilities {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.capability-card {
+  padding: 28px;
+  border: 1px solid #dfe5ee;
+  border-radius: 14px;
+  background: white;
+}
+
+.card-number {
+  color: #1e5eff;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.capability-card h2 {
+  margin: 20px 0 10px;
+  color: #172033;
+  font-size: 1.15rem;
+}
+
+.capability-card p {
+  margin: 0;
+  color: #687487;
+  line-height: 1.6;
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    padding: 18px;
+  }
+
+  .status {
+    display: none;
+  }
+
+  .hero {
+    margin: 80px auto 52px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .capabilities {
+    grid-template-columns: 1fr;
+  }
+}
