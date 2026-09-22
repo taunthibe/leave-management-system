@@ -15,7 +15,10 @@
   "build:web": "npm run build --workspace=@lms/web",
   "build:api": "npm run build --workspace=@lms/api",
   "lint:web": "npm run lint --workspace=@lms/web",
-  "start:api": "npm run start --workspace=@lms/api"
+  "start:api": "npm run start --workspace=@lms/api",
+  "db:generate": "npm run prisma:generate --workspace=@lms/api",
+"db:migrate": "npm run prisma:migrate --workspace=@lms/api",
+"db:studio": "npm run prisma:studio --workspace=@lms/api"
 },
   "engines": {
     "node": ">=22.0.0"
