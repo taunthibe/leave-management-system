@@ -2,6 +2,7 @@ import 'dotenv/config'
 import cors from 'cors'
 import express from 'express'
 import helmet from 'helmet'
+import { prisma } from './lib/prisma.js'
 
 const app = express()
 
@@ -9,16 +10,15 @@ const port = Number(process.env.PORT ?? 4000)
 const webOrigin = process.env.WEB_ORIGIN ?? 'http://localhost:5173'
 
 app.use(helmet())
-
 app.use(
   cors({
     origin: webOrigin,
     credentials: true,
   }),
 )
-
 app.use(express.json({ limit: '1mb' }))
 
+// Tests whether the Express API is running.
 app.get('/api/v1/health', (_request, response) => {
   response.status(200).json({
     status: 'ok',
@@ -27,6 +27,36 @@ app.get('/api/v1/health', (_request, response) => {
   })
 })
 
+// Tests whether the API can communicate with PostgreSQL.
+app.get('/api/v1/health/database', async (_request, response) => {
+  try {
+    const connection = await prisma.$queryRaw<
+      Array<{
+        database_name: string
+        connected_user: string
+      }>
+    >`
+      SELECT
+        current_database() AS database_name,
+        current_user AS connected_user
+    `
+
+    response.status(200).json({
+      status: 'ok',
+      database: connection[0]?.database_name,
+      user: connection[0]?.connected_user,
+    })
+  } catch (error) {
+    console.error('Database health check failed:', error)
+
+    response.status(503).json({
+      status: 'error',
+      message: 'Database connection failed',
+    })
+  }
+})
+
+// This must remain after every valid route.
 app.use((_request, response) => {
   response.status(404).json({
     code: 'NOT_FOUND',
