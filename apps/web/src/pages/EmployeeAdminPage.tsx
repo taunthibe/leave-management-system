@@ -746,28 +746,35 @@ export function EmployeeAdminPage() {
                     </small>
                   </div>
 
-                  <button
-                    className="department-action"
-                    type="button"
-                    disabled={
-                      changingEmployeeId === employee.id ||
-                      employee.id === user?.id
-                    }
-                    onClick={() =>
-                      handleStatusChange(employee)
-                    }
-                    title={
-                      employee.id === user?.id
-                        ? 'You cannot deactivate your own account.'
-                        : undefined
-                    }
-                  >
-                    {changingEmployeeId === employee.id
-                      ? 'Saving…'
-                      : employee.isActive
-                        ? 'Deactivate'
-                        : 'Activate'}
-                  </button>
+                <div className="employee-item__actions">
+                    <Link
+                        className="employee-edit-link"
+                        to={`/admin/employees/${employee.id}/edit`}
+                    >
+                        Edit
+                    </Link>
+
+                    <button
+                        className="department-action"
+                        type="button"
+                        disabled={
+                        changingEmployeeId === employee.id ||
+                        employee.id === user?.id
+                        }
+                        onClick={() => handleStatusChange(employee)}
+                        title={
+                        employee.id === user?.id
+                            ? 'You cannot deactivate your own account.'
+                            : undefined
+                        }
+                    >
+                        {changingEmployeeId === employee.id
+                        ? 'Saving…'
+                        : employee.isActive
+                            ? 'Deactivate'
+                            : 'Activate'}
+                    </button>
+                </div>
                 </article>
               ))}
             </div>

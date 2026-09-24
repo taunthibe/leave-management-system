@@ -408,30 +408,39 @@ export function AdminPage() {
                         'No description provided.'}
                     </p>
 
-                    <small>
-                      {department.employeeCount}{' '}
-                      {department.employeeCount === 1
-                        ? 'employee'
-                        : 'employees'}
-                    </small>
-                  </div>
+            <small>
+                {department.employeeCount}{' '}
+                {department.employeeCount === 1
+                    ? 'employee'
+                    : 'employees'}
+            </small>
+                </div>
 
-                  <button
+                <div className="employee-item__actions">
+                <Link
+                    className="employee-edit-link"
+                    to={`/admin/departments/${department.id}/edit`}
+                >
+                    Edit
+                </Link>
+
+                <button
                     className="department-action"
                     type="button"
                     disabled={
-                      changingDepartmentId === department.id
+                    changingDepartmentId === department.id
                     }
                     onClick={() =>
-                      handleStatusChange(department)
+                    handleStatusChange(department)
                     }
-                  >
+                >
                     {changingDepartmentId === department.id
-                      ? 'Saving…'
-                      : department.isActive
+                    ? 'Saving…'
+                    : department.isActive
                         ? 'Deactivate'
                         : 'Activate'}
-                  </button>
+                </button>
+                </div>
                 </article>
               ))}
             </div>
