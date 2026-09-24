@@ -5,6 +5,9 @@ import { RoleRoute } from './auth/RoleRoute'
 import { AdminPage } from './pages/AdminPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { LoginPage } from './pages/LoginPage'
+import { EmployeeAdminPage } from './pages/EmployeeAdminPage'
+import { EditEmployeePage } from './pages/EditEmployeePage'
+import { EditDepartmentPage } from './pages/EditDepartmentPage'
 
 function App() {
   return (
@@ -22,12 +25,23 @@ function App() {
           element={<DashboardPage />}
         />
 
-        <Route
-          element={
-            <RoleRoute allowedRoles={['ADMIN']} />
-          }
-        >
+        <Route element={<RoleRoute allowedRoles={['ADMIN']} />}>
           <Route path="/admin" element={<AdminPage />} />
+
+          <Route
+            path="/admin/departments/:id/edit"
+            element={<EditDepartmentPage />}
+          />
+
+          <Route
+            path="/admin/employees"
+            element={<EmployeeAdminPage />}
+          />
+
+          <Route
+            path="/admin/employees/:id/edit"
+            element={<EditEmployeePage />}
+          />
         </Route>
       </Route>
 
