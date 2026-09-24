@@ -213,11 +213,6 @@ export function AdminPage() {
     <main className="admin-page">
       <header className="admin-header">
         <div>
-          <Link className="admin-brand" to="/dashboard">
-            <span>L</span>
-            Leaveflow
-          </Link>
-
           <p className="eyebrow">ADMINISTRATOR WORKSPACE</p>
           <h1>Shape your organisation.</h1>
 
@@ -227,9 +222,18 @@ export function AdminPage() {
           </p>
         </div>
 
-        <Link className="admin-back-link" to="/dashboard">
-          ← Back to dashboard
-        </Link>
+        <div className="admin-header-actions">
+            <Link
+                className="admin-back-link"
+                to="/admin/employees"
+            >
+                Manage employees
+            </Link>
+
+            <Link className="admin-back-link" to="/dashboard">
+                ← Back to Dashboard
+            </Link>
+        </div>
       </header>
 
       <section className="admin-stat-grid">
