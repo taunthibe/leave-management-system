@@ -3,9 +3,10 @@ import cors from 'cors'
 import express from 'express'
 import helmet from 'helmet'
 import { prisma } from './lib/prisma.js'
+import cookieParser from 'cookie-parser'
+import { authRouter } from './routes/auth.routes.js'
 
 const app = express()
-
 const port = Number(process.env.PORT ?? 4000)
 const webOrigin = process.env.WEB_ORIGIN ?? 'http://localhost:5173'
 
@@ -17,6 +18,7 @@ app.use(
   }),
 )
 app.use(express.json({ limit: '1mb' }))
+app.use(cookieParser())
 
 // Tests whether the Express API is running.
 app.get('/api/v1/health', (_request, response) => {
@@ -55,6 +57,7 @@ app.get('/api/v1/health/database', async (_request, response) => {
     })
   }
 })
+app.use('/api/v1/auth', authRouter)
 
 // This must remain after every valid route.
 app.use((_request, response) => {
