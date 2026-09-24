@@ -15,7 +15,7 @@ enum UserRole {
 }
 
 model Department {
-  id          String     @id @default(uuid()) @db.Uuid
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   code        String     @unique @db.VarChar(20)
   name        String     @unique @db.VarChar(100)
   description String?
@@ -26,20 +26,24 @@ model Department {
 }
 
 model Employee {
-  id             String     @id @default(uuid()) @db.Uuid
-  employeeNumber String     @unique @db.VarChar(30)
-  firstName      String     @db.VarChar(100)
-  lastName       String     @db.VarChar(100)
-  email          String     @unique @db.VarChar(255)
-  phone          String?    @db.VarChar(30)
-  role           UserRole   @default(EMPLOYEE)
-  isActive       Boolean    @default(true)
+  id                String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  employeeNumber    String    @unique @db.VarChar(30)
+  firstName         String    @db.VarChar(100)
+  lastName          String    @db.VarChar(100)
+  email             String    @unique @db.VarChar(255)
+  phone             String?   @db.VarChar(30)
+  role              UserRole  @default(EMPLOYEE)
+  isActive          Boolean   @default(true)
+  passwordHash      String?   @db.VarChar(255)
+  passwordChangedAt DateTime?
+  lastLoginAt       DateTime?
+  tokenVersion      Int       @default(0)
 
   departmentId String     @db.Uuid
   department   Department @relation(fields: [departmentId], references: [id], onDelete: Restrict)
 
-  managerId    String?    @db.Uuid
-  manager      Employee?  @relation("EmployeeManager", fields: [managerId], references: [id], onDelete: SetNull)
+  managerId     String?    @db.Uuid
+  manager       Employee?  @relation("EmployeeManager", fields: [managerId], references: [id], onDelete: SetNull)
   directReports Employee[] @relation("EmployeeManager")
 
   createdAt DateTime @default(now())
@@ -50,7 +54,7 @@ model Employee {
 }
 
 model LeavePolicy {
-  id                    String   @id @default(uuid()) @db.Uuid
+  id                    String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   code                  String   @unique @db.VarChar(30)
   name                  String   @unique @db.VarChar(100)
   description           String?

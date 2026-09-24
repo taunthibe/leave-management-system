@@ -20,8 +20,18 @@ export type EmployeeModel = runtime.Types.Result.DefaultSelection<Prisma.$Employ
 
 export type AggregateEmployee = {
   _count: EmployeeCountAggregateOutputType | null
+  _avg: EmployeeAvgAggregateOutputType | null
+  _sum: EmployeeSumAggregateOutputType | null
   _min: EmployeeMinAggregateOutputType | null
   _max: EmployeeMaxAggregateOutputType | null
+}
+
+export type EmployeeAvgAggregateOutputType = {
+  tokenVersion: number | null
+}
+
+export type EmployeeSumAggregateOutputType = {
+  tokenVersion: number | null
 }
 
 export type EmployeeMinAggregateOutputType = {
@@ -33,6 +43,10 @@ export type EmployeeMinAggregateOutputType = {
   phone: string | null
   role: $Enums.UserRole | null
   isActive: boolean | null
+  passwordHash: string | null
+  passwordChangedAt: Date | null
+  lastLoginAt: Date | null
+  tokenVersion: number | null
   departmentId: string | null
   managerId: string | null
   createdAt: Date | null
@@ -48,6 +62,10 @@ export type EmployeeMaxAggregateOutputType = {
   phone: string | null
   role: $Enums.UserRole | null
   isActive: boolean | null
+  passwordHash: string | null
+  passwordChangedAt: Date | null
+  lastLoginAt: Date | null
+  tokenVersion: number | null
   departmentId: string | null
   managerId: string | null
   createdAt: Date | null
@@ -63,6 +81,10 @@ export type EmployeeCountAggregateOutputType = {
   phone: number
   role: number
   isActive: number
+  passwordHash: number
+  passwordChangedAt: number
+  lastLoginAt: number
+  tokenVersion: number
   departmentId: number
   managerId: number
   createdAt: number
@@ -70,6 +92,14 @@ export type EmployeeCountAggregateOutputType = {
   _all: number
 }
 
+
+export type EmployeeAvgAggregateInputType = {
+  tokenVersion?: true
+}
+
+export type EmployeeSumAggregateInputType = {
+  tokenVersion?: true
+}
 
 export type EmployeeMinAggregateInputType = {
   id?: true
@@ -80,6 +110,10 @@ export type EmployeeMinAggregateInputType = {
   phone?: true
   role?: true
   isActive?: true
+  passwordHash?: true
+  passwordChangedAt?: true
+  lastLoginAt?: true
+  tokenVersion?: true
   departmentId?: true
   managerId?: true
   createdAt?: true
@@ -95,6 +129,10 @@ export type EmployeeMaxAggregateInputType = {
   phone?: true
   role?: true
   isActive?: true
+  passwordHash?: true
+  passwordChangedAt?: true
+  lastLoginAt?: true
+  tokenVersion?: true
   departmentId?: true
   managerId?: true
   createdAt?: true
@@ -110,6 +148,10 @@ export type EmployeeCountAggregateInputType = {
   phone?: true
   role?: true
   isActive?: true
+  passwordHash?: true
+  passwordChangedAt?: true
+  lastLoginAt?: true
+  tokenVersion?: true
   departmentId?: true
   managerId?: true
   createdAt?: true
@@ -155,6 +197,18 @@ export type EmployeeAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inter
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: EmployeeAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: EmployeeSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: EmployeeMinAggregateInputType
@@ -185,6 +239,8 @@ export type EmployeeGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   _count?: EmployeeCountAggregateInputType | true
+  _avg?: EmployeeAvgAggregateInputType
+  _sum?: EmployeeSumAggregateInputType
   _min?: EmployeeMinAggregateInputType
   _max?: EmployeeMaxAggregateInputType
 }
@@ -198,11 +254,17 @@ export type EmployeeGroupByOutputType = {
   phone: string | null
   role: $Enums.UserRole
   isActive: boolean
+  passwordHash: string | null
+  passwordChangedAt: Date | null
+  lastLoginAt: Date | null
+  tokenVersion: number
   departmentId: string
   managerId: string | null
   createdAt: Date
   updatedAt: Date
   _count: EmployeeCountAggregateOutputType | null
+  _avg: EmployeeAvgAggregateOutputType | null
+  _sum: EmployeeSumAggregateOutputType | null
   _min: EmployeeMinAggregateOutputType | null
   _max: EmployeeMaxAggregateOutputType | null
 }
@@ -234,6 +296,10 @@ export type EmployeeWhereInput = {
   phone?: Prisma.StringNullableFilter<"Employee"> | string | null
   role?: Prisma.EnumUserRoleFilter<"Employee"> | $Enums.UserRole
   isActive?: Prisma.BoolFilter<"Employee"> | boolean
+  passwordHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  passwordChangedAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  tokenVersion?: Prisma.IntFilter<"Employee"> | number
   departmentId?: Prisma.UuidFilter<"Employee"> | string
   managerId?: Prisma.UuidNullableFilter<"Employee"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
@@ -252,6 +318,10 @@ export type EmployeeOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  passwordChangedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  tokenVersion?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -273,6 +343,10 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"Employee"> | string | null
   role?: Prisma.EnumUserRoleFilter<"Employee"> | $Enums.UserRole
   isActive?: Prisma.BoolFilter<"Employee"> | boolean
+  passwordHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  passwordChangedAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  tokenVersion?: Prisma.IntFilter<"Employee"> | number
   departmentId?: Prisma.UuidFilter<"Employee"> | string
   managerId?: Prisma.UuidNullableFilter<"Employee"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
@@ -291,13 +365,19 @@ export type EmployeeOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  passwordChangedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  tokenVersion?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EmployeeCountOrderByAggregateInput
+  _avg?: Prisma.EmployeeAvgOrderByAggregateInput
   _max?: Prisma.EmployeeMaxOrderByAggregateInput
   _min?: Prisma.EmployeeMinOrderByAggregateInput
+  _sum?: Prisma.EmployeeSumOrderByAggregateInput
 }
 
 export type EmployeeScalarWhereWithAggregatesInput = {
@@ -312,6 +392,10 @@ export type EmployeeScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"Employee"> | $Enums.UserRole
   isActive?: Prisma.BoolWithAggregatesFilter<"Employee"> | boolean
+  passwordHash?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
+  passwordChangedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+  lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Employee"> | Date | string | null
+  tokenVersion?: Prisma.IntWithAggregatesFilter<"Employee"> | number
   departmentId?: Prisma.UuidWithAggregatesFilter<"Employee"> | string
   managerId?: Prisma.UuidNullableWithAggregatesFilter<"Employee"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Employee"> | Date | string
@@ -327,6 +411,10 @@ export type EmployeeCreateInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -343,6 +431,10 @@ export type EmployeeUncheckedCreateInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   departmentId: string
   managerId?: string | null
   createdAt?: Date | string
@@ -359,6 +451,10 @@ export type EmployeeUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEmployeesNestedInput
@@ -375,6 +471,10 @@ export type EmployeeUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -391,6 +491,10 @@ export type EmployeeCreateManyInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   departmentId: string
   managerId?: string | null
   createdAt?: Date | string
@@ -406,6 +510,10 @@ export type EmployeeUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -419,6 +527,10 @@ export type EmployeeUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -449,10 +561,18 @@ export type EmployeeCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  passwordChangedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
+  tokenVersion?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type EmployeeAvgOrderByAggregateInput = {
+  tokenVersion?: Prisma.SortOrder
 }
 
 export type EmployeeMaxOrderByAggregateInput = {
@@ -464,6 +584,10 @@ export type EmployeeMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  passwordChangedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
+  tokenVersion?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -479,10 +603,18 @@ export type EmployeeMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
+  passwordChangedAt?: Prisma.SortOrder
+  lastLoginAt?: Prisma.SortOrder
+  tokenVersion?: Prisma.SortOrder
   departmentId?: Prisma.SortOrder
   managerId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type EmployeeSumOrderByAggregateInput = {
+  tokenVersion?: Prisma.SortOrder
 }
 
 export type EmployeeCreateNestedManyWithoutDepartmentInput = {
@@ -551,6 +683,18 @@ export type EnumUserRoleFieldUpdateOperationsInput = {
   set?: $Enums.UserRole
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type EmployeeUpdateOneWithoutDirectReportsNestedInput = {
   create?: Prisma.XOR<Prisma.EmployeeCreateWithoutDirectReportsInput, Prisma.EmployeeUncheckedCreateWithoutDirectReportsInput>
   connectOrCreate?: Prisma.EmployeeCreateOrConnectWithoutDirectReportsInput
@@ -598,6 +742,10 @@ export type EmployeeCreateWithoutDepartmentInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   manager?: Prisma.EmployeeCreateNestedOneWithoutDirectReportsInput
@@ -613,6 +761,10 @@ export type EmployeeUncheckedCreateWithoutDepartmentInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   managerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -657,6 +809,10 @@ export type EmployeeScalarWhereInput = {
   phone?: Prisma.StringNullableFilter<"Employee"> | string | null
   role?: Prisma.EnumUserRoleFilter<"Employee"> | $Enums.UserRole
   isActive?: Prisma.BoolFilter<"Employee"> | boolean
+  passwordHash?: Prisma.StringNullableFilter<"Employee"> | string | null
+  passwordChangedAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  lastLoginAt?: Prisma.DateTimeNullableFilter<"Employee"> | Date | string | null
+  tokenVersion?: Prisma.IntFilter<"Employee"> | number
   departmentId?: Prisma.UuidFilter<"Employee"> | string
   managerId?: Prisma.UuidNullableFilter<"Employee"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
@@ -672,6 +828,10 @@ export type EmployeeCreateWithoutDirectReportsInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -687,6 +847,10 @@ export type EmployeeUncheckedCreateWithoutDirectReportsInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   departmentId: string
   managerId?: string | null
   createdAt?: Date | string
@@ -707,6 +871,10 @@ export type EmployeeCreateWithoutManagerInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   department: Prisma.DepartmentCreateNestedOneWithoutEmployeesInput
@@ -722,6 +890,10 @@ export type EmployeeUncheckedCreateWithoutManagerInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   departmentId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -758,6 +930,10 @@ export type EmployeeUpdateWithoutDirectReportsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEmployeesNestedInput
@@ -773,6 +949,10 @@ export type EmployeeUncheckedUpdateWithoutDirectReportsInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -804,6 +984,10 @@ export type EmployeeCreateManyDepartmentInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   managerId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -818,6 +1002,10 @@ export type EmployeeUpdateWithoutDepartmentInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   manager?: Prisma.EmployeeUpdateOneWithoutDirectReportsNestedInput
@@ -833,6 +1021,10 @@ export type EmployeeUncheckedUpdateWithoutDepartmentInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -848,6 +1040,10 @@ export type EmployeeUncheckedUpdateManyWithoutDepartmentInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -862,6 +1058,10 @@ export type EmployeeCreateManyManagerInput = {
   phone?: string | null
   role?: $Enums.UserRole
   isActive?: boolean
+  passwordHash?: string | null
+  passwordChangedAt?: Date | string | null
+  lastLoginAt?: Date | string | null
+  tokenVersion?: number
   departmentId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -876,6 +1076,10 @@ export type EmployeeUpdateWithoutManagerInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   department?: Prisma.DepartmentUpdateOneRequiredWithoutEmployeesNestedInput
@@ -891,6 +1095,10 @@ export type EmployeeUncheckedUpdateWithoutManagerInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -906,6 +1114,10 @@ export type EmployeeUncheckedUpdateManyWithoutManagerInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordChangedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tokenVersion?: Prisma.IntFieldUpdateOperationsInput | number
   departmentId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -951,6 +1163,10 @@ export type EmployeeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   phone?: boolean
   role?: boolean
   isActive?: boolean
+  passwordHash?: boolean
+  passwordChangedAt?: boolean
+  lastLoginAt?: boolean
+  tokenVersion?: boolean
   departmentId?: boolean
   managerId?: boolean
   createdAt?: boolean
@@ -970,6 +1186,10 @@ export type EmployeeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   phone?: boolean
   role?: boolean
   isActive?: boolean
+  passwordHash?: boolean
+  passwordChangedAt?: boolean
+  lastLoginAt?: boolean
+  tokenVersion?: boolean
   departmentId?: boolean
   managerId?: boolean
   createdAt?: boolean
@@ -987,6 +1207,10 @@ export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   phone?: boolean
   role?: boolean
   isActive?: boolean
+  passwordHash?: boolean
+  passwordChangedAt?: boolean
+  lastLoginAt?: boolean
+  tokenVersion?: boolean
   departmentId?: boolean
   managerId?: boolean
   createdAt?: boolean
@@ -1004,13 +1228,17 @@ export type EmployeeSelectScalar = {
   phone?: boolean
   role?: boolean
   isActive?: boolean
+  passwordHash?: boolean
+  passwordChangedAt?: boolean
+  lastLoginAt?: boolean
+  tokenVersion?: boolean
   departmentId?: boolean
   managerId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeNumber" | "firstName" | "lastName" | "email" | "phone" | "role" | "isActive" | "departmentId" | "managerId" | "createdAt" | "updatedAt", ExtArgs["result"]["employee"]>
+export type EmployeeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeNumber" | "firstName" | "lastName" | "email" | "phone" | "role" | "isActive" | "passwordHash" | "passwordChangedAt" | "lastLoginAt" | "tokenVersion" | "departmentId" | "managerId" | "createdAt" | "updatedAt", ExtArgs["result"]["employee"]>
 export type EmployeeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   department?: boolean | Prisma.DepartmentDefaultArgs<ExtArgs>
   manager?: boolean | Prisma.Employee$managerArgs<ExtArgs>
@@ -1042,6 +1270,10 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     phone: string | null
     role: $Enums.UserRole
     isActive: boolean
+    passwordHash: string | null
+    passwordChangedAt: Date | null
+    lastLoginAt: Date | null
+    tokenVersion: number
     departmentId: string
     managerId: string | null
     createdAt: Date
@@ -1480,6 +1712,10 @@ export interface EmployeeFieldRefs {
   readonly phone: Prisma.FieldRef<"Employee", 'String'>
   readonly role: Prisma.FieldRef<"Employee", 'UserRole'>
   readonly isActive: Prisma.FieldRef<"Employee", 'Boolean'>
+  readonly passwordHash: Prisma.FieldRef<"Employee", 'String'>
+  readonly passwordChangedAt: Prisma.FieldRef<"Employee", 'DateTime'>
+  readonly lastLoginAt: Prisma.FieldRef<"Employee", 'DateTime'>
+  readonly tokenVersion: Prisma.FieldRef<"Employee", 'Int'>
   readonly departmentId: Prisma.FieldRef<"Employee", 'String'>
   readonly managerId: Prisma.FieldRef<"Employee", 'String'>
   readonly createdAt: Prisma.FieldRef<"Employee", 'DateTime'>

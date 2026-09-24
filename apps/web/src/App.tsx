@@ -1,89 +1,41 @@
-import { useEffect, useState } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
-
-type ApiStatus = 'checking' | 'online' | 'offline'
-
-const apiBaseUrl =
-  import.meta.env.VITE_API_URL ?? 'http://localhost:4000/api/v1'
+import { ProtectedRoute } from './auth/ProtectedRoute'
+import { RoleRoute } from './auth/RoleRoute'
+import { AdminPage } from './pages/AdminPage'
+import { DashboardPage } from './pages/DashboardPage'
+import { LoginPage } from './pages/LoginPage'
 
 function App() {
-  const [apiStatus, setApiStatus] = useState<ApiStatus>('checking')
-
-  useEffect(() => {
-    const checkApi = async () => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/health`)
-
-        if (!response.ok) {
-          throw new Error('API health check failed')
-        }
-
-        setApiStatus('online')
-      } catch {
-        setApiStatus('offline')
-      }
-    }
-
-    void checkApi()
-  }, [])
-
-  const statusText = {
-    checking: 'Checking API',
-    online: 'API online',
-    offline: 'API offline',
-  }[apiStatus]
-
   return (
-    <main className="app-shell">
-      <header className="topbar">
-        <div className="brand">
-          <span className="brand-mark">L</span>
-          <span>Leave Management System</span>
-        </div>
+    <Routes>
+      <Route
+        path="/"
+        element={<Navigate to="/login" replace />}
+      />
 
-        <span
-          className={`status status-${apiStatus}`}
-          aria-live="polite"
+      <Route path="/login" element={<LoginPage />} />
+
+      <Route element={<ProtectedRoute />}>
+        <Route
+          path="/dashboard"
+          element={<DashboardPage />}
+        />
+
+        <Route
+          element={
+            <RoleRoute allowedRoles={['ADMIN']} />
+          }
         >
-          {statusText}
-        </span>
-      </header>
+          <Route path="/admin" element={<AdminPage />} />
+        </Route>
+      </Route>
 
-      <section className="hero">
-        <p className="eyebrow">Full stack portfolio project</p>
-        <h1>Manage employee leave with clarity.</h1>
-
-        <p className="introduction">
-          A secure place for employees to submit leave, managers to review
-          requests and HR officers to manage policies and balances.
-        </p>
-
-        <div className="actions">
-          <button type="button">View dashboard</button>
-          <a href="#capabilities">Explore capabilities</a>
-        </div>
-      </section>
-
-      <section className="capabilities" id="capabilities">
-        <article className="capability-card">
-          <span className="card-number">01</span>
-          <h2>Employee self-service</h2>
-          <p>Submit requests, check balances and follow approval progress.</p>
-        </article>
-
-        <article className="capability-card">
-          <span className="card-number">02</span>
-          <h2>Manager approvals</h2>
-          <p>Review requests and identify overlapping team absences.</p>
-        </article>
-
-        <article className="capability-card">
-          <span className="card-number">03</span>
-          <h2>HR administration</h2>
-          <p>Manage employees, policies, holidays, balances and reports.</p>
-        </article>
-      </section>
-    </main>
+      <Route
+        path="*"
+        element={<Navigate to="/login" replace />}
+      />
+    </Routes>
   )
 }
 
