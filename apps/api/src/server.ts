@@ -6,6 +6,7 @@ import { prisma } from './lib/prisma.js'
 import cookieParser from 'cookie-parser'
 import { authRouter } from './routes/auth.routes.js'
 import { departmentRouter } from './routes/department.routes.js'
+import { employeeRouter } from './routes/employee.routes.js'
 
 const app = express()
 const port = Number(process.env.PORT ?? 4000)
@@ -60,6 +61,7 @@ app.get('/api/v1/health/database', async (_request, response) => {
 })
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/departments', departmentRouter)
+app.use('/api/v1/employees', employeeRouter)  
 
 // This must remain after every valid route.
 app.use((_request, response) => {
